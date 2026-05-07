@@ -1,15 +1,19 @@
-module.exports = {
-  env: {
-    node: true,
-    jest: true,
-    es2021: true
-  },
-  extends: 'eslint:recommended',
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module'
-  },
-  rules: {
-    'no-console': 'off'  // or 'warn' if you want warnings instead of errors
-  }
-};
+name: Deployment pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  simple_deployment_pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - name: Install dependencies
+        run: npm install
+      - name: Check style
+        run: npm run eslint
