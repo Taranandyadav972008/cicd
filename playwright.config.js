@@ -1,4 +1,4 @@
-const { defineConfig } = require('@playwright/test');
+const { defineConfig } = require('@playwright/test')
 
 module.exports = defineConfig({
   testDir: './e2e-tests',
@@ -11,4 +11,4 @@ module.exports = defineConfig({
     timeout: 120 * 1000,
     reuseExistingServer: !process.env.CI,
   },
-});
+})

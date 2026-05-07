@@ -1,77 +1,57 @@
-const js = require('@eslint/js')
-const react = require('eslint-plugin-react')
-const jest = require('eslint-plugin-jest')
-const globals = require('globals')
+// eslint.config.js
+import js from '@eslint/js'
+import globals from 'globals'
+import react from 'eslint-plugin-react'
+import jest from 'eslint-plugin-jest'
 
-module.exports = [
-  {
-    ignores: [
-      'webpack.config.js',
-      'eslint.config.js',
-      '.eslintrc.js',
-      'node_modules/**',
-      'dist/**'
-    ]
-  },
+export default [
   js.configs.recommended,
   {
-    files: ['app.js'],
-    languageOptions: {
-      ecmaVersion: 2018,
-      sourceType: 'commonjs',
-      globals: {
-        ...globals.node
-      }
-    },
-    rules: {
-      'indent': ['error', 2],
-      'linebreak-style': ['error', 'unix'],
-      'quotes': ['error', 'single'],
-      'semi': ['error', 'never'],
-      'eqeqeq': 'error',
-      'no-trailing-spaces': 'error',
-      'object-curly-spacing': ['error', 'always'],
-      'arrow-spacing': ['error', { 'before': true, 'after': true }],
-      'no-console': 0
-    }
-  },
-  {
-    files: ['src/**/*.{js,jsx}', 'test/**/*.{js,jsx}'],
+    files: ['**/*.{js,jsx}'],
     plugins: {
       react,
-      jest
+      jest,
     },
     languageOptions: {
-      ecmaVersion: 2018,
-      sourceType: 'module',
-      parserOptions: {
-        ecmaFeatures: {
-          jsx: true
-        }
-      },
       globals: {
         ...globals.browser,
-        ...globals.es6,
-        ...globals.jest
-      }
+        ...globals.node,
+        ...globals.jest,
+      },
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true,
+        },
+        ecmaVersion: 2018,
+        sourceType: 'module',
+      },
+    },
+    rules: {
+      indent: ['error', 2],
+      'linebreak-style': ['error', 'windows'],
+      quotes: ['error', 'single'],
+      semi: ['error', 'never'],
+      eqeqeq: 'error',
+      'no-trailing-spaces': 'error',
+      'object-curly-spacing': ['error', 'always'],
+      'arrow-spacing': ['error', { before: true, after: true }],
+      'no-console': 'off',
+      'react/prop-types': 0,
+      'no-unused-vars': 'warn',
     },
     settings: {
       react: {
-        version: 'detect'
-      }
+        version: 'detect',
+      },
     },
+  },
+  {
+    files: ['**/__tests__/**', '**/*.test.js', '**/*.spec.js'],
     rules: {
-      ...react.configs.recommended.rules,
-      'indent': ['error', 2],
-      'linebreak-style': ['error', 'unix'],
-      'quotes': ['error', 'single'],
-      'semi': ['error', 'never'],
-      'eqeqeq': 'error',
-      'no-trailing-spaces': 'error',
-      'object-curly-spacing': ['error', 'always'],
-      'arrow-spacing': ['error', { 'before': true, 'after': true }],
-      'no-console': 'error',
-      'react/prop-types': 0
-    }
-  }
+      // Add any test-specific rules here
+    },
+  },
+  {
+    ignores: ['node_modules', 'dist', 'build', '.github'],
+  },
 ]
